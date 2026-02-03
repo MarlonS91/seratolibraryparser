@@ -89,6 +89,10 @@ async function parseChunk(
     case "adat": // Strcuture containg an array of chunks
       data = await parseChunkArray(buffer, index + 8, index + 8 + length);
       break;
+    case "tsng":
+    case "pfil":
+      data = buffer.slice(index + 8, index + 8 + length).swap16().toString('utf16le');
+      break;
     case "\u0000\u0000\u0000\u0001":
     case "\u0000\u0000\u0000\u000f":
       data = buffer.readUInt32BE(index + 8);
